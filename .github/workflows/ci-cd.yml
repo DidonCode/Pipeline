@@ -12,9 +12,6 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: Changement du répertoire
-        run: cd ../../
-
       - name: Installation de NPM
         uses: actions/setup-node@v3
         with:
@@ -24,7 +21,7 @@ jobs:
         run: npm install
 
       - name: Lancement de docker
-        run: docker compose up --build -d & sleep 10
+        run: docker compose ./docker-compose.yml up --build -d & sleep 10
 
       - name: Lancement des tests API
         run: npm run test
