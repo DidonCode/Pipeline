@@ -23,6 +23,9 @@ jobs:
       - name: Lancement de docker
         run: npm run docker & sleep 50
       
+      - name: Insération des données
+        run: mysql -h 127.0.0.1 -u root -pbutify butify < ./docker/example.sql
+
       - name: Insération d'une clé API Youtube
         run: mysql -h 127.0.0.1 -u root -pbutify butify -e "INSERT INTO youtube (value, exedeed, date) VALUES ('${{ secrets.YOUTUBE_KEY }}', 0, '2025-01-01');"
 
