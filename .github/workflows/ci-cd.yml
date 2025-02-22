@@ -24,9 +24,9 @@ jobs:
         run: npm run docker & sleep 50
       
       - name: Insération d'une clé API Youtube
-        env:
+        with:
           YOUTUBE_KEY: ${{ secrets.YOUTUBE_KEY }}
-        run: mysql -h database -u root -pbutify butify -e "INSERT INTO youtube (value, exedeed, date) VALUES ('$YOUTUBE_KEY', 0, '2025-01-01');"
+        run: mysql -h 127.0.0.1 -u root -pbutify butify -e "INSERT INTO youtube (value, exedeed, date) VALUES ('$YOUTUBE_KEY', 0, '2025-01-01');"
 
       - name: Lancement des tests API
         run: npm run test
