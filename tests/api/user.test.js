@@ -16,6 +16,7 @@ describe("Tests de l'API Butify (user)", () => {
 	test('POST api/user/account - Retourne un statut 201 et les informations du compte suivies de son token', async () => {
 		const formData = new FormData();
 		formData.append('email', 'perrier.richardj@gmail.com');
+		formData.append('pseudo', 'DidonCode')
 		formData.append('password', 'a');
 
 		const response = await fetch(apiUrl + 'api/user/account', {

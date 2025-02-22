@@ -21,7 +21,7 @@ jobs:
         run: npm install
 
       - name: Lancement de docker
-        run: npm run docker & sleep 120
+        run: npm run docker & sleep 80
 
       - name: Lancement des tests API
         run: npm run test
