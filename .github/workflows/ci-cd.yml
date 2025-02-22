@@ -12,10 +12,11 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: Installation de NPM
+      - name: Initialisation de NPM
         uses: actions/setup-node@v3
         with:
           node-version: '18'
+        run: chmod -R 777 ./
 
       - name: Installation des packages
         run: npm install
