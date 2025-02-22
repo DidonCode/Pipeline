@@ -21,7 +21,7 @@ jobs:
         run: npm install
 
       - name: Lancement de docker
-        run: docker compose up --build -d & sleep 10
+        run: docker compose -f docker/docker-compose.yml up --build -d & sleep 10
 
       - name: Lancement des tests API
         run: npm run test
