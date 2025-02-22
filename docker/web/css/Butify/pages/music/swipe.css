@@ -1,0 +1,50 @@
+.like-swipe {
+	border-radius: 100%;
+	padding: 8px 7px 7px 7px;
+	background-color: #f7cbcb;
+}
+
+.rounded-img {
+	border-radius: 20px;
+	width: 225px;
+	height: 225px;
+}
+.secondSong {
+	position: absolute;
+	z-index: -1;
+	top: 0;
+	left: 0;
+}
+
+.liked-song {
+	animation: toLeft 1s forwards;
+}
+
+.unliked-song {
+	animation: toRight 1s forwards;
+}
+
+@keyframes toLeft {
+	100% {
+		transform: rotate(10deg);
+	}
+}
+
+@keyframes toRight {
+	100% {
+		transform: rotate(-10deg);
+	}
+}
+
+.cancel-color {
+	color: #808080;
+}
+
+.like-color {
+	color: #e80000;
+}
+
+.swipe-img-container {
+	position: relative;
+	width: 225px;
+}
