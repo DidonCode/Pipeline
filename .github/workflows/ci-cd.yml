@@ -25,13 +25,7 @@ jobs:
         run: chmod -R 777 ./ & npm install
 
       - name: Lancement de docker
-        run: npm run docker & sleep 50
-      
-      - name: Insertion des données
-        run: mysql -h 127.0.0.1 -u root -pbutify butify < ./docker/example.sql
-
-      - name: Insertion d'une clé API Youtube
-        run: mysql -h 127.0.0.1 -u root -pbutify butify -e "INSERT INTO youtube (value, exedeed, date) VALUES ('${{ secrets.YOUTUBE_KEY }}', 0, '2025-01-01');"
+        run: npm run docker & sleep 10
 
       - name: Lancement des tests API
         run: npm run test
