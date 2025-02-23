@@ -34,3 +34,21 @@ jobs:
 
       - name: Arrêt de Docker
         run: docker compose -f ./docker/docker-compose.yml down -v
+
+  create-pull-request:
+    needs: tests
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+        with:
+          ref: dev
+
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v5
+        with:
+          base: main
+          branch: dev
+          title: "Auto PR: Merge dev into main"
+          body: "Tests passés avec succès et déploiement OK."
+          token: ${{ secrets.GITHUB_TOKEN }}
