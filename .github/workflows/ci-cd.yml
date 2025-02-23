@@ -40,7 +40,7 @@ jobs:
         run: docker compose -f ./docker/docker-compose.yml down -v
 
   create-pull-request:
-    needs: build-and-deploy
+    needs: test
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
