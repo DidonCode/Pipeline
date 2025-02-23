@@ -40,7 +40,7 @@ jobs:
         run: docker compose -f ./docker/docker-compose.yml down -v
 
   create-pull-request:
-    needs: test
+    needs: build-and-deploy
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -48,10 +48,19 @@ jobs:
         with:
           ref: dev
 
-      - name: Auto Merge Pull Request
-        uses: pascalgn/automerge-action@v0.15.4
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Create Pull Request
+        id: create-pr
+        uses: peter-evans/create-pull-request@v5
         with:
-          pull-request: true
+          base: main
+          branch: dev
+          title: "Auto PR: Merge dev into main"
+          body: "Tests passés avec succès et déploiement OK."
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Enable Auto-Merge
+        uses: peter-evans/enable-pull-request-automerge@v2
+        with:
+          pull-request-number: ${{ steps.create-pr.outputs.pull-request-number }}
           merge-method: squash
+          github-token: ${{ secrets.GITHUB_TOKEN }}
