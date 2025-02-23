@@ -40,7 +40,7 @@ jobs:
         run: docker compose -f ./docker/docker-compose.yml down -v
 
   create-pull-request:
-    needs: test
+    needs: build-and-deploy
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -63,4 +63,4 @@ jobs:
         with:
           pull-request-number: ${{ steps.create-pr.outputs.pull-request-number }}
           merge-method: squash
-          github-token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.GITHUB_TOKEN }}
