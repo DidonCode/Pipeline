@@ -1,66 +1,62 @@
-name: CI/CD Pipeline
+name: CI/CD Tests
 
 on:
-  push:
-    branches:
-      - dev
+    push:
+        branches:
+            - dev
 
 permissions:
-  contents: write
-  pull-requests: write
+    contents: write
+    pull-requests: write
 
 jobs:
-  test:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v3
+    build:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Clonage du dépôt
+              uses: actions/checkout@v3
 
-      - name: Initialisation de NPM
-        uses: actions/setup-node@v3
-        with:
-          node-version: '18'
+            - name: Initialisation de NPM
+              uses: actions/setup-node@v3
+              with:
+                  node-version: '18'
 
-      - name: Installation des packages
-        run: chmod -R 777 ./ & npm install
+            - name: Installation du projet
+              run: chmod -R 777 ./ & npm install
 
-      - name: Lancement de docker
-        run: npm run docker & sleep 50
+            - name: Temporisation
+              run: sleep 10
 
-      - name: Insération des données
-        run: mysql -h 127.0.0.1 -u root -pbutify butify < ./docker/example.sql
+            - name: Insertion des données
+              run: mysql -h 127.0.0.1 -u root -pbutify butify < ./docker/example.sql
 
-      - name: Insération d'une clé API Youtube
-        run: mysql -h 127.0.0.1 -u root -pbutify butify -e "INSERT INTO youtube (value, exedeed, date) VALUES ('${{ secrets.YOUTUBE_KEY }}', 0, '2025-01-01');"
+            - name: Insertion d'une clé API Youtube
+              run: mysql -h 127.0.0.1 -u root -pbutify butify -e "INSERT INTO youtube (value, exedeed, date) VALUES ('${{ secrets.YOUTUBE_KEY }}', 0, '2025-01-01');"
 
-      - name: Lancement des tests API
-        run: npm run test
+            - name: Lancement des tests API
+              run: npm run test
 
-      - name: Arrêt de Docker
-        run: docker compose -f ./docker/docker-compose.yml down -v
+            - name: Arrêt de Docker
+              run: npm run stop
 
-  create-pull-request:
-    needs: test
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v3
-        with:
-          ref: dev
+            - name: Fusionner la branche Main dans Dev
+              run: |
+                  git config user.name "github-actions[bot]"
+                  git config user.email "github-actions[bot]@users.noreply.github.com"
+                  git fetch origin main
+                  git checkout dev
+                  git merge origin/main --strategy-option theirs || echo "Conflit détecté mais ignoré"
+                  git add .
+                  git commit -m "Auto merge main into dev" || echo "Aucun changement"
+                  git push origin dev || echo "Aucun push nécessaire"
 
-      - name: Create Pull Request
-        id: create-pr
-        uses: peter-evans/create-pull-request@v5
-        with:
-          base: main
-          branch: dev
-          title: "Auto PR: Merge dev into main"
-          body: "Tests passés avec succès et déploiement OK."
-          token: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Enable Auto-Merge
-        uses: peter-evans/enable-pull-request-automerge@v2
-        with:
-          pull-request-number: ${{ steps.create-pr.outputs.pull-request-number }}
-          merge-method: squash
-          token: ${{ secrets.GITHUB_TOKEN }}
+            - name: Create Pull Request
+              uses: peter-evans/create-pull-request@v4
+              with:
+                  token: ${{ secrets.TOKEN_GITHUB }}
+                  branch: dev
+                  base: main
+                  title: 'Pull Request automatique DEV => MAIN'
+                  body: 'Pull Request automatique DEV => MAIN'
+                  commit-message: 'Automatique'
+                  draft: false
