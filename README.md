@@ -1,7 +1,7 @@
 <p align="center">
   <img src="./docker/web/images/logos/logoButify.png" width="100" alt="Butify Logo">
 </p>
-<code style="color : orange; font-weight: bold; justify-content: center">Butify</code>
+<code style="color : Orange; font-weight: bold; justify-content: center">Butify</code>
 <p align="center" style="color: white;">Plateforme de musique</p>
 
 <p align="center">
