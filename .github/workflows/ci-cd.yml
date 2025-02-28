@@ -59,5 +59,4 @@ jobs:
                   title: 'Pull Request automatique DEV => MAIN'
                   body: 'Pull Request automatique DEV => MAIN'
                   commit-message: 'Automatique'
-                  delete-branch: true
                   draft: false
