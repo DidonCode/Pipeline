@@ -1,4 +1,6 @@
-<img src="./docker/web/images/logos/logoButify.png" width="100" alt="Butify Logo">
+<p align="center">
+    <img src="./docker/web/images/logos/logoButify.png" width="100" alt="Butify Logo">
+</p>
 <p align="center">
     <text color=orange>BUTIFY</text>
 </p>
