@@ -1,9 +1,10 @@
+<img src="./docker/web/images/logos/logoButify.png" width="100" alt="Butify Logo">
 <p align="center">
-  <img src="./docker/web/images/logos/logoButify.png" width="100" alt="Butify Logo">
+    <text color=orange>BUTIFY</text>
 </p>
-<code style="color : orangered; font-weight: bold; justify-content: center">Butify</code>
-<p align="center" style="color: white;">Plateforme de musique</p>
-
+<p align="center">
+    <text color=white>Plateforme de musique</text>
+</p>
 <p align="center">
   <img src="https://img.shields.io/badge/Version-1.0-orange">
   <img src="https://img.shields.io/badge/Status-Online-success">
