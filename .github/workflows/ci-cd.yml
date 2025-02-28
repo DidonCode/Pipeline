@@ -1,30 +1,62 @@
-name: CI/CD Pipeline
+name: CI/CD Tests
 
 on:
-  push:
-    branches:
-      - dev
+    push:
+        branches:
+            - dev
+
+permissions:
+    contents: write
+    pull-requests: write
 
 jobs:
-  test:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v3
+    build:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Clonage du dépôt
+              uses: actions/checkout@v3
 
-      - name: Installation de NPM
-        uses: actions/setup-node@v3
-        with:
-          node-version: '18'
+            - name: Initialisation de NPM
+              uses: actions/setup-node@v3
+              with:
+                  node-version: '18'
 
-      - name: Installation de NPM dans le projet
-        run: npm install
+            - name: Installation du projet
+              run: chmod -R 777 ./ & npm install
 
-      - name: Lancement de docker
-        run: docker compose up --build -d & sleep 10
+            - name: Temporisation
+              run: sleep 10
 
-      - name: Lancement des tests API
-        run: npm run test
+            - name: Insertion des données
+              run: mysql -h 127.0.0.1 -u root -pbutify butify < ./docker/example.sql
 
-      - name: Arrêt de Docker
-        run: docker-compose down
+            - name: Insertion d'une clé API Youtube
+              run: mysql -h 127.0.0.1 -u root -pbutify butify -e "INSERT INTO youtube (value, exedeed, date) VALUES ('${{ secrets.YOUTUBE_KEY }}', 0, '2025-01-01');"
+
+            - name: Lancement des tests API
+              run: npm run test
+
+            - name: Arrêt de Docker
+              run: npm run stop
+
+            - name: Fusionner la branche Main dans Dev
+              run: |
+                  git config user.name "github-actions[bot]"
+                  git config user.email "github-actions[bot]@users.noreply.github.com"
+                  git fetch origin main
+                  git checkout dev
+                  git merge origin/main --strategy-option theirs || echo "Conflit détecté mais ignoré"
+                  git add .
+                  git commit -m "Auto merge main into dev" || echo "Aucun changement"
+                  git push origin dev || echo "Aucun push nécessaire"
+
+            - name: Create Pull Request
+              uses: peter-evans/create-pull-request@v4
+              with:
+                  token: ${{ secrets.TOKEN_GITHUB }}
+                  branch: dev
+                  base: main
+                  title: '🔥 PR automatique depuis Dev vers Main'
+                  body: 'Automated PR avec gestion des conflits (CI/CD)'
+                  commit-message: 'Automated changes'
+                  draft: false

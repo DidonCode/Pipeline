@@ -18,9 +18,9 @@
 
 ## Commandes:
 
-    npm run start     : Démarre le projet
-    npm run build     : Compile le projet
-    npm run stop      : Arrête le projet
+    npm run start   : Démarre le projet
+    npm run build   : Compile le projet
+    npm run stop    : Arrête le projet
 
 ## Test:
 
@@ -28,29 +28,29 @@
 
 ## Mobile:
 
-   Suivre le tutoriel => ./mobile
+Suivre le tutoriel => ./mobile
 
 ## Lien d'accès avec Docker:
 
 ### Documentation
 
- - [Documentation API](http://localhost:8084/docs/api/index.html)
+- [Documentation API](http://localhost:8084/docs/api/index.html)
 
- - [Documentation Mobile](http://localhost:8084/docs/mobile/index.html)
+- [Documentation Mobile](http://localhost:8084/docs/mobile/index.html)
 
 ### Web
 
- - [Web (page de connexion)](http://localhost:8080/web/login.php)
+- [Web (page de connexion)](http://localhost:8080/web/login.php)
 
- - [Web (page personnel)](http://localhost:8080/web/home)
+- [Web (page personnel)](http://localhost:8080/web/home)
 
 ### Admin
 
- - [Admin (page de connexion)](http://localhost:8080/web/admin/login.php)
+- [Admin (page de connexion)](http://localhost:8080/web/admin/login.php)
 
 ### Autre
 
- - [Phpmyadmin](http://localhost:8083)
+- [Phpmyadmin](http://localhost:8083)
 
 ## Base de donnée:
 
