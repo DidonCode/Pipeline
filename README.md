@@ -2,19 +2,16 @@
     <img src="./docker/web/images/logos/logoButify.png" width="100" alt="Butify Logo">
 </p>
 <p align="center">
-    <text color=orange>BUTIFY</text>
+    <text color="orange">BUTIFY</text>
 </p>
 <p align="center">
-    <text color=white>Plateforme de musique</text>
+    <text color="white">Plateforme de musique</text>
 </p>
 <p align="center">
   <img src="https://img.shields.io/badge/Version-1.0-orange">
   <img src="https://img.shields.io/badge/Status-Online-success">
 </p>
-<p>
-Quack quack
-<text style="color: red">ERROR</text>
-</p>
+
 ## Installation:
 
     npm install
