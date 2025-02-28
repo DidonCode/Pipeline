@@ -1,14 +1,15 @@
-<table align="center">
-    <tr style="border: 0">
-        <td style="border: 0">
-            <img src="./docker/web/images/logos/logoButify.png" width="100" alt="Butify Logo">
-        </td>
-        <td style="padding-left: 15px; border: 0">
-            <h3 style="color: #EE964B; margin: 0 !important;">Butify</h3>
-            <h5 style="color: white; font-weight: normal; margin: 0;">Plateforme de musique</h5>
-        </td>
-    </tr>
-</table>
+<div align="center" style="display: flex; align-items: center; gap: 15px;">
+    <img src="./docker/web/images/logos/logoButify.png" width="100" alt="Butify Logo">
+    <div style="display: flex; flex-direction: column; gap: 5px; text-align: left;">
+        <h3 style="margin: 0; color: #EE964B; font-weight: bold;">Butify</h3>
+        <h5 style="margin: 0; color: white; font-weight: normal;">Plateforme de musique</h5>
+    </div>
+</div>
+
+<p align="center">
+  <img src="https://img.shields.io/badge/Version-1.0-orange">
+  <img src="https://img.shields.io/badge/Status-Online-success">
+</p>
 
 ## Installation:
 
