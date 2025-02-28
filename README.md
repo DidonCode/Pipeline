@@ -2,7 +2,7 @@
     <img src="./docker/web/images/logos/logoButify.png" width="100" alt="Butify Logo">
     <div style="display: flex; flex-direction: column; gap: 5px; text-align: left;">
         <h3 style="margin: 0; color: #EE964B; font-weight: bold;">Butify</h3>
-        <h5 style="margin: 0; color: white; font-weight: normal;">Plateforme de musique</h5>
+        <span style="margin: 0; color: white; font-weight: normal;">Plateforme de musique</span>
     </div>
 </div>
 
