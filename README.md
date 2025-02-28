@@ -1,9 +1,9 @@
 <table align="center">
-    <tr>
-        <td>
+    <tr style="border: 0">
+        <td style="border: 0">
             <img src="./docker/web/images/logos/logoButify.png" width="100" alt="Butify Logo">
         </td>
-        <td style="padding-left: 15px;">
+        <td style="padding-left: 15px; border: 0">
             <h3 style="color: #EE964B; margin: 0;">Butify</h3>
             <h5 style="color: white; font-weight: normal; margin: 0;">Plateforme de musique</h5>
         </td>
