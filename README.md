@@ -1,4 +1,4 @@
-<table align="center">
+<table align="center" style="border: 0">
 <tr>
 <td>
 <img src="./docker/web/images/logos/logoButify.png" width="100" alt="Butify Logo">
