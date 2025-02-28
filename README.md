@@ -1,10 +1,8 @@
-<div align="center" style="display: flex; align-items: center; gap: 15px;">
-    <img src="./docker/web/images/logos/logoButify.png" width="100" alt="Butify Logo">
-    <div style="display: flex; flex-direction: column; gap: 5px; text-align: left;">
-        <span style="margin: 0; color: #EE964B; font-weight: bold;">Butify \n</span>
-        <span style="margin: 0; color: white; font-weight: normal;">Plateforme de musique</span>
-    </div>
-</div>
+<p align="center">
+  <img src="./docker/web/images/logos/logoButify.png" width="100" alt="Butify Logo">
+</p>
+<p align="center" style="color: #EE964B; font-weight: bold;">Butify</p>
+<p align="center" style="color: white;">Plateforme de musique</p>
 
 <p align="center">
   <img src="https://img.shields.io/badge/Version-1.0-orange">
