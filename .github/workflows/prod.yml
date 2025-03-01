@@ -1,0 +1,42 @@
+name: Deploy
+
+on:
+  workflow_dispatch:
+
+jobs:
+  deploy-prod:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Fusionner la branche Main dans Dev avec suppression
+        run: |
+            git config user.name "github-actions[bot]"
+            git config user.email "github-actions[bot]@users.noreply.github.com"
+            git fetch origin main
+            git checkout main
+            git branch -D dev || echo "Branche dev inexistante"
+            git checkout -b dev
+            git merge origin/main --strategy-option theirs || echo "Conflit détecté mais ignoré"
+            git add .
+            git commit -m "Auto merge main into dev" || echo "Aucun changement"
+            git push origin dev --force || echo "Aucun push nécessaire"
+
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v4
+        with:
+            token: ${{ secrets.TOKEN_GITHUB }}
+            branch: dev
+            base: main
+            title: 'Pull Request automatique DEV => MAIN'
+            body: 'Pull Request automatique DEV => MAIN'
+            commit-message: 'Automatique'
+            draft: false
+
+      - name: Déploiement PROD 🚀
+        run: |
+          echo "Déploiement sur PROD"
+          docker build -t mon-app:prod .
+          docker run -d -e ENV=prod mon-app:prod
