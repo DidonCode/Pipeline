@@ -1,13 +1,30 @@
 (() => {
-	const firstSong = document.getElementById('first-song');
+	const contentContainer = document.getElementById('content-container');
+	const cardContainer = document.getElementById('card-container');
+
 	const dislikeBtn = document.getElementById('dislike-swipe');
 	const likeBtn = document.getElementById('like-swipe');
 
-	/*
-    <div id="caca">
-        <img src="${data.image}"></img>
-    </div>
+	function createCard(card, i) {
+		sound = document.createElement('img');
+		sound.classList.add('rounded-img', 'firstSound');
 
+		if (i < 0) {
+			sound.classList.add('secondSound');
+		}
+
+		sound.alt = `Image de couverture de musique : ${card.title} `;
+		sound.src = card.image;
+		sound.style.zIndex = i;
+
+		cardTitle = document.createElement('h2');
+		cardTitle.classList.add('text-center', 'mb-3');
+		cardTitle.innerText = card.title;
+
+		cardContainer.appendChild(sound);
+	}
+
+	/*
     async function sounds() {
         let soundsFormData = new FormData();
 
@@ -24,7 +41,11 @@
                     } else {
                         if(parsedData.lenth == 0) return;
 
-                        document.createElement("caca")
+                        let i = 0;
+                        for(card in parsedData) {
+                            createCard(card, i)
+                            i++
+                        }
                     }
                 }
             }
@@ -32,20 +53,87 @@
     }
         */
 
-	function remove(isLiked) {
-		// Prends un boolean qui est soit gauche ou droite ce qui adapte l'animation.
+	const test = [
+		{
+			id: '1',
+			title: 'Test',
+			artist: '1',
+			type: '1',
+			image: 'http://localhost:8081/storage/sound/image/1.jpg',
+			link: 'http://localhost:8081/storage/sound/file/1.mp3',
+		},
+		{
+			id: '5',
+			title: 'Test',
+			artist: '1',
+			type: '1',
+			image: 'http://localhost:8081/storage/sound/image/5.png',
+			link: 'http://localhost:8081/storage/sound/file/1.mp3',
+		},
+		{
+			id: '20',
+			title: 'Test',
+			artist: '1',
+			type: '1',
+			image: 'http://localhost:8081/storage/sound/image/20.jpg',
+			link: 'http://localhost:8081/storage/sound/file/1.mp3',
+		},
+		{
+			id: '27',
+			title: 'Test',
+			artist: '1',
+			type: '1',
+			image: 'http://localhost:8081/storage/sound/image/27.png',
+			link: 'http://localhost:8081/storage/sound/file/1.mp3',
+		},
+		{
+			id: '28',
+			title: 'Test',
+			artist: '1',
+			type: '1',
+			image: 'http://localhost:8081/storage/sound/image/28.jpg',
+			link: 'http://localhost:8081/storage/sound/file/1.mp3',
+		},
+		{
+			id: '30',
+			title: 'Test',
+			artist: '1',
+			type: '1',
+			image: 'http://localhost:8081/storage/sound/image/30.png',
+			link: 'http://localhost:8081/storage/sound/file/1.mp3',
+		},
+	];
 
-		if (isLiked) {
-			firstSong.classList.remove('unliked-song');
-			firstSong.classList.add('liked-song');
-		} else {
-			firstSong.classList.remove('liked-song');
-			firstSong.classList.add('unliked-song');
-			// ajoute à la playlist "Matched"
-			// Affiche une alert pour préciser à l'utilisateur qu'elle a été envoyé dans la playlist "Matched"
+	function generateCards(test) {
+		let i = 0;
+		for (card of test) {
+			createCard(card, i);
+			i--;
 		}
-		// element.remove() pour supprimer la carte actuelle
 	}
+
+	const remove = async (isLiked) => {
+		if (cardContainer.children.length > 0) {
+			const firstCard = cardContainer.children[0];
+
+			if (isLiked) {
+				firstCard.classList.add('liked-sound');
+			} else {
+				firstCard.classList.add('unliked-sound');
+			}
+
+			await new Promise((resolve) => {
+				firstCard.addEventListener('animationend', resolve, { once: true });
+			});
+
+			firstCard.remove();
+			if (cardContainer.children.length > 0) {
+				cardContainer.children[0].id = 'first-sound';
+
+				cardContainer.children[0].classList.remove('secondSound');
+			}
+		}
+	};
 
 	dislikeBtn.onclick = function () {
 		remove(0);
@@ -54,4 +142,6 @@
 	likeBtn.onclick = function () {
 		remove(1);
 	};
+
+	generateCards(test);
 })();

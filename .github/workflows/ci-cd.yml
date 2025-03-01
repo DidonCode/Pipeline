@@ -56,7 +56,7 @@ jobs:
                   token: ${{ secrets.TOKEN_GITHUB }}
                   branch: dev
                   base: main
-                  title: '🔥 PR automatique depuis Dev vers Main'
-                  body: 'Automated PR avec gestion des conflits (CI/CD)'
-                  commit-message: 'Automated changes'
+                  title: 'Pull Request automatique DEV => MAIN'
+                  body: 'Pull Request automatique DEV => MAIN'
+                  commit-message: 'Automatique'
                   draft: false
