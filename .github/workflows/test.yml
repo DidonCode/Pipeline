@@ -1,27 +1,20 @@
-name: Main => Test
+name: Test branch
 
 on:
   push:
     branches:
       - main
 
-permissions:
-  contents: write
-
 jobs:
-  copy-branch:
+  recreate_test:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
+      - name: Checkout Code
+        uses: actions/checkout@v3
 
-      - name: Push Main to Test
+      - name: Recreate Test Branch
         run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-          git checkout test || git checkout -b test
-          git merge origin/main --no-edit
-          git push origin test
+          git config --global user.email "ci@github.com"
+          git config --global user.name "CI Bot"
+          git checkout -b test
+          git push origin test --force
