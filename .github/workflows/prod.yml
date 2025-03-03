@@ -15,11 +15,18 @@ jobs:
       - name: Merge Validation
         run: echo "Merge Pull Request into Main"
 
+      - name: Delete Dev Branch
+        uses: dawidd6/action-delete-branch@v3
+        with:
+          github_token: ${{ secrets.TOKEN_GITHUB }}
+          branches: dev
+
       - name: Recreate Dev Branch
+        env:
+          GH_TOKEN: ${{ secrets.TOKEN_GITHUB }}
         run: |
           git config --global user.email "ci@github.com"
           git config --global user.name "CI Bot"
-          git fetch origin
-          git checkout dev
-          git reset --hard origin/main
-          git push https://x-access-token:${{ secrets.TOKEN_GITHUB }}@github.com/${{ github.repository }} dev --force
+          git remote set-url origin https://x-access-token:$GH_TOKEN@github.com/${{ github.repository }}
+          git checkout -b dev origin/main
+          git push origin dev
