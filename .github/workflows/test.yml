@@ -15,19 +15,22 @@ jobs:
     steps:
       - name: Checkout Code
         uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
 
-      - name: Fetch and Merge Changes
-        env:
-          GH_TOKEN: ${{ secrets.TOKEN_GITHUB }}
+      - name: Set Git Config
         run: |
           git config --global user.email "ci@github.com"
           git config --global user.name "CI Bot"
+
+      - name: Merge Main into Test
+        env:
+          GH_TOKEN: ${{ secrets.TOKEN_GITHUB }}
+        run: |
           git remote set-url origin https://x-access-token:${GH_TOKEN}@github.com/${{ github.repository }}
+          
           git checkout test
-          git fetch origin
-          git checkout main
-          git pull origin main
-          git checkout test
-          git merge main
-
-
+          git fetch origin main
+          git merge origin/main || { echo "Merge conflict detected"; exit 1; }
+          
+          git push origin test
