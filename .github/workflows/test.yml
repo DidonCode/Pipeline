@@ -18,7 +18,8 @@ jobs:
         run: |
           git config --global user.email "ci@github.com"
           git config --global user.name "CI Bot"
+          git remote set-url origin https://x-access-token:$GH_TOKEN@github.com/${{ github.repository }}
           git fetch origin
           git checkout test || git checkout -b test
           git reset --hard origin/main
-          git push https://x-access-token:$GH_TOKEN@github.com/${{ github.repository }} test
+          git push origin test
