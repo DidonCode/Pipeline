@@ -13,7 +13,7 @@ jobs:
         uses: actions/checkout@v3
 
       - name: Merge Validation
-        run: echo "Merge Pull Request into Main"
+        run: echo "Merge Pull Request into Mai"
 
       - name: Delete Dev Branch
         uses: dawidd6/action-delete-branch@v3
