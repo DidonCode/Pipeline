@@ -21,7 +21,7 @@ jobs:
           github_token: ${{ secrets.TOKEN_GITHUB }}
           branches: dev
 
-      - name: Recreate Dev Branch
+      - name: Recreate Dev 
         env:
           GH_TOKEN: ${{ secrets.TOKEN_GITHUB }}
         run: |
