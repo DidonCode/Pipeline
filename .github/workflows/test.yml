@@ -17,4 +17,4 @@ jobs:
           git config --global user.email "ci@github.com"
           git config --global user.name "CI Bot"
           git checkout -b test
-          git push https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }} test --force
+          git push https://x-access-token:${{ secrets.TOKEN_GITHUB }}@github.com/${{ github.repository }} test --force
