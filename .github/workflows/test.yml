@@ -1,4 +1,4 @@
-name: Test branch
+name: TEST
 
 on:
   push:
@@ -10,7 +10,7 @@ permissions:
   pull-requests: write
 
 jobs:
-  merge_main:
+  update-from-origin:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Code
@@ -31,6 +31,6 @@ jobs:
           
           git checkout test
           git fetch origin main
-          git merge origin/main || { echo "Merge conflict detected"; exit 1; }
+          git merge origin/main
           
           git push origin test

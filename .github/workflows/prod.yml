@@ -1,14 +1,11 @@
-name: Deploy
+name: PROD
 
 on:
-  pull_request:
-    branches:
-      - main
+  workflow_dispatch:
 
 permissions:
   contents: write
   pull-requests: write
-
 
 jobs:
   merge_main:
@@ -17,22 +14,13 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v3
 
-      - name: Merge Validation
-        run: echo "Merge Pull Request into Mai"
-
-      - name: Delete Dev Branch
-        uses: dawidd6/action-delete-branch@v3
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v6
         with:
-          github_token: ${{ secrets.TOKEN_GITHUB }}
-          branches: dev
-
-      - name: Recreate Dev Branch
-        env:
-          GH_TOKEN: ${{ secrets.TOKEN_GITHUB }}
-        run: |
-          git config --global user.email "ci@github.com"
-          git config --global user.name "CI Bot"
-          git remote set-url origin https://x-access-token:${GH_TOKEN}@github.com/${{ github.repository }}
-          git pull --rebase origin dev
-          git push origin dev
-
+          token: ${{ secrets.TOKEN_GITHUB }}
+          branch: dev
+          base: main
+          title: "Automated PR - Feature vers Main"
+          body: |
+            Cette PR est créée automatiquement par GitHub Actions 🚀
+          draft: false
