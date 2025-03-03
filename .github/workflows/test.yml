@@ -6,15 +6,19 @@ on:
       - main
 
 jobs:
-  recreate_test:
+  update_test:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Code
         uses: actions/checkout@v3
 
-      - name: Recreate Test Branch
+      - name: Update Test Branch
+        env:
+          GH_TOKEN: ${{ secrets.TOKEN_GITHUB }}
         run: |
           git config --global user.email "ci@github.com"
           git config --global user.name "CI Bot"
-          git checkout -b test
-          git push https://x-access-token:${{ secrets.TOKEN_GITHUB }}@github.com/${{ github.repository }} test --force
+          git fetch origin
+          git checkout test || git checkout -b test
+          git reset --hard origin/main
+          git push https://x-access-token:$GH_TOKEN@github.com/${{ github.repository }} test
