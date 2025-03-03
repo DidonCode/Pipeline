@@ -16,15 +16,14 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v3
 
-      - name: Set up Git
+      - name: Fetch and Merge Changes
         run: |
-          git config --global user.name "CI Bot"
           git config --global user.email "ci@github.com"
-      
-      - name: Pull with rebase (automatic resolution of conflicts)
-        run: |
-          git fetch origin
-          git rebase origin/test || (git rebase --abort && git merge --strategy=recursive --strategy-option=theirs origin/test)
-      
-      - name: Push changes
-        run: git push origin test
+          git config --global user.name "CI Bot"
+          git remote set-url origin https://x-access-token:${GH_TOKEN}@github.com/${{ github.repository }}
+          git fetch origin test
+          git merge --strategy-option theirs origin/test || git merge --allow-unrelated-histories origin/test
+          git add .
+          git rebase --continue || echo "No rebase needed"
+          git push origin test --force
+
