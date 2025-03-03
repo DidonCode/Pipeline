@@ -19,6 +19,7 @@ jobs:
         run: |
           git config --global user.email "ci@github.com"
           git config --global user.name "CI Bot"
+          git fetch origin
           git checkout dev
-          git reset --hard main
-          git push origin dev --force
+          git reset --hard origin/main
+          git push https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }} dev --force
