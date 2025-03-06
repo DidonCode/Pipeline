@@ -24,3 +24,4 @@ jobs:
           body: |
             Cette PR est créée automatiquement par GitHub Actions 🚀
           draft: false
+          delete-branch: false
