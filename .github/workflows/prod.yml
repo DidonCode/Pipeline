@@ -14,14 +14,19 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v3
 
-      - name: Create Pull Request
-        uses: peter-evans/create-pull-request@v6
-        with:
-          token: ${{ secrets.TOKEN_GITHUB }}
-          branch: dev
-          base: main
-          title: "Automated PR - Feature vers Main"
-          body: |
-            Cette PR est créée automatiquement par GitHub Actions 🚀
-          draft: false
-          delete-branch: false
+      - name: Set Git Config
+        run: |
+          git config --global user.email "ci@github.com"
+          git config --global user.name "CI Bot"
+
+      - name: Merge Main into Test
+        env:
+          GH_TOKEN: ${{ secrets.TOKEN_GITHUB }}
+        run: |
+          git remote set-url origin https://x-access-token:${GH_TOKEN}@github.com/${{ github.repository }}
+          
+          git checkout test
+          git fetch origin dev
+          git merge origin/dev
+
+          git request-pull v1.0 https://x-access-token:${GH_TOKEN}@github.com/${{ github.repository }} main
