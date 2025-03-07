@@ -10,10 +10,10 @@ permissions:
   pull-requests: write
 
 jobs:
-  merge_main:
+  build:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout Code
+      - name: Clonage du dépôt
         uses: actions/checkout@v3
 
       - name: Set Git Config

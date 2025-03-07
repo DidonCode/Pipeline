@@ -10,20 +10,24 @@ permissions:
   pull-requests: write
 
 jobs:
-  update-from-origin:
+  update:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout Code
+      - name: Clonage du dépôt
         uses: actions/checkout@v3
         with:
           fetch-depth: 0
 
+<<<<<<< Updated upstream
       - name: Set Git Config
         run: |
           git config --global user.email "ci@github.com"
           git config --global user.name "CI Bot"
 
       - name: Merge Main into Test
+=======
+      - name: Merge main => test
+>>>>>>> Stashed changes
         env:
           GH_TOKEN: ${{ secrets.TOKEN_GITHUB }}
         run: |

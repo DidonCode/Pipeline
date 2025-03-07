@@ -1,4 +1,4 @@
-name: PROD
+name: PRODUCTION
 
 on:
   workflow_dispatch:
@@ -8,19 +8,26 @@ permissions:
   pull-requests: write
 
 jobs:
-  merge_main:
+  merge:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout Code
+      - name: Clonage du dépôt
         uses: actions/checkout@v3
 
-      - name: Create Pull Request from dev to main
+      - name: Pull Request dev => main
         uses: peter-evans/create-pull-request@v4
         with:
           token: ${{ secrets.TOKEN_GITHUB }}
+<<<<<<< Updated upstream:.github/workflows/prod.yml
           base: main
           branch: dev
           title: 'Automated PR: dev -> main'
           body: 'This PR is automatically generated from the dev branch.'
+=======
+          base: dev
+          branch: main
+          title: 'Pull Request dev => main'
+          body: 'Pull request automatique dev => main'
+>>>>>>> Stashed changes:.github/workflows/production.yml
           draft: false
           delete-branch: false
