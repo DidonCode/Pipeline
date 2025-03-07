@@ -22,4 +22,5 @@ jobs:
           head: dev
           title: 'Automated PR: dev -> main'
           body: 'This PR is automatically generated from the dev branch.'
-          
+          draft: false
+          delete-branch: false
