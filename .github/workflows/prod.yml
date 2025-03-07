@@ -19,7 +19,7 @@ jobs:
         with:
           token: ${{ secrets.TOKEN_GITHUB }}
           base: main
-          head: dev
+          branch: dev
           title: 'Automated PR: dev -> main'
           body: 'This PR is automatically generated from the dev branch.'
           draft: false
