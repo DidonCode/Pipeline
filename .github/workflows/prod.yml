@@ -14,7 +14,17 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v3
 
+      - name: Check Existing Pull Request
+        id: check-pr
+        uses: jwalton/gh-find-current-pr@v1
+        with:
+          github-token: ${{ secrets.TOKEN_GITHUB }}
+          state: open
+          head: dev
+          base: main
+
       - name: Create Pull Request
+        if: steps.check-pr.outputs.number == ''
         uses: peter-evans/create-pull-request@v6
         with:
           token: ${{ secrets.TOKEN_GITHUB }}
@@ -24,3 +34,5 @@ jobs:
           body: 'Cette pull request a été créée automatiquement par GitHub Actions.'
           labels: 'automatique, dev-to-main'
           draft: false
+          delete-branch: false
+          branch-suffix: timestamp
