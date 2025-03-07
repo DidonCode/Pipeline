@@ -18,8 +18,8 @@ jobs:
         uses: peter-evans/create-pull-request@v4
         with:
           token: ${{ secrets.TOKEN_GITHUB }}
-          base: main
-          branch: dev
+          base: dev
+          branch: main
           title: 'Automated PR: dev -> main'
           body: 'This PR is automatically generated from the dev branch.'
           draft: false
