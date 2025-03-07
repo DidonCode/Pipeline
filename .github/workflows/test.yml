@@ -18,11 +18,6 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Set Git Config
-        run: |
-          git config --global user.email "ci@github.com"
-          git config --global user.name "CI Bot"
-
       - name: Merge Main into Test
         env:
           GH_TOKEN: ${{ secrets.TOKEN_GITHUB }}
