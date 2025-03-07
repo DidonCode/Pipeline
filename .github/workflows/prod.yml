@@ -21,19 +21,28 @@ jobs:
           git config --global user.email "ci@github.com"
           git config --global user.name "CI Bot"
 
-      - name: Merge Main into Test
+      - name: Merge Dev into Main
         env:
           GH_TOKEN: ${{ secrets.TOKEN_GITHUB }}
         run: |
           git remote set-url origin https://x-access-token:${GH_TOKEN}@github.com/${{ github.repository }}
-          
           git checkout dev
           git fetch origin dev
           git merge origin/dev
+
+      - name: Authenticate GitHub CLI
+        env:
+          GH_TOKEN: ${{ secrets.TOKEN_GITHUB }}
+        run: |
+          echo "${GH_TOKEN}" | gh auth login --with-token
 
       - name: Create Pull Request
         env:
           GH_TOKEN: ${{ secrets.TOKEN_GITHUB }}
         run: |
-          gh auth login --with-token <<< "${GH_TOKEN}"
-          gh pr create --base main --head dev --title "Merge dev into main" --body "Automated PR from CI workflow"
+          gh pr create \
+            --base main \
+            --head dev \
+            --title "Merge dev into main" \
+            --body "Automated PR from CI workflow" \
+            --reviewer DidonCode
