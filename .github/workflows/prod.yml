@@ -14,27 +14,12 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v3
 
-      - name: Check Existing Pull Request
-        id: check-pr
-        uses: jwalton/gh-find-current-pr@v1
-        with:
-          github-token: ${{ secrets.TOKEN_GITHUB }}
-          state: open
-          head: dev
-          base: main
-
-      - name: Create Pull Request
-        if: steps.check-pr.outputs.number == ''
-        id: create-pr
-        uses: peter-evans/create-pull-request@v6
+      - name: Create Pull Request from dev to main
+        uses: peter-evans/create-pull-request@v4
         with:
           token: ${{ secrets.TOKEN_GITHUB }}
           base: main
-          branch: dev
-          title: 'Merge dev into main 🚀'
-          body: 'Cette pull request a été créée automatiquement par GitHub Actions.'
-          labels: 'automatique, dev-to-main'
-          draft: false
-          delete-branch: false
-          branch-suffix: timestamp
+          head: dev
+          title: 'Automated PR: dev -> main'
+          body: 'This PR is automatically generated from the dev branch.'
           
