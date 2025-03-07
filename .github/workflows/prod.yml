@@ -15,7 +15,7 @@ jobs:
         uses: actions/checkout@v3
         with:
           fetch-depth: 0
-          
+
       - name: Set Git Config
         run: |
           git config --global user.email "ci@github.com"
@@ -31,4 +31,4 @@ jobs:
           git fetch origin dev
           git merge origin/dev
 
-          git request-pull v1.0 https://x-access-token:${GH_TOKEN}@github.com/${{ github.repository }} main
+          git request-pull https://x-access-token:${GH_TOKEN}@github.com/${{ github.repository }} main
