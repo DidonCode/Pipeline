@@ -27,8 +27,13 @@ jobs:
         run: |
           git remote set-url origin https://x-access-token:${GH_TOKEN}@github.com/${{ github.repository }}
           
-          git checkout test
+          git checkout dev
           git fetch origin dev
           git merge origin/dev
 
-          git request-pull https://github.com/${{ github.repository }} main
+      - name: Create Pull Request
+        env:
+          GH_TOKEN: ${{ secrets.TOKEN_GITHUB }}
+        run: |
+          gh auth login --with-token <<< "${GH_TOKEN}"
+          gh pr create --base main --head dev --title "Merge dev into main" --body "Automated PR from CI workflow"
