@@ -31,4 +31,4 @@ jobs:
           git fetch origin dev
           git merge origin/dev
 
-          git request-pull https://x-access-token:${GH_TOKEN}@github.com/${{ github.repository }} main
+          git request-pull https://github.com/${{ github.repository }} main
