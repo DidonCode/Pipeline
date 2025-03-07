@@ -18,16 +18,9 @@ jobs:
         uses: peter-evans/create-pull-request@v4
         with:
           token: ${{ secrets.TOKEN_GITHUB }}
-<<<<<<< Updated upstream:.github/workflows/prod.yml
-          base: main
-          branch: dev
-          title: 'Automated PR: dev -> main'
-          body: 'This PR is automatically generated from the dev branch.'
-=======
           base: dev
           branch: main
           title: 'Pull Request dev => main'
           body: 'Pull request automatique dev => main'
->>>>>>> Stashed changes:.github/workflows/production.yml
           draft: false
           delete-branch: false
