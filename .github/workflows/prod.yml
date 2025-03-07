@@ -13,30 +13,14 @@ jobs:
     steps:
       - name: Checkout Code
         uses: actions/checkout@v3
-        with:
-          fetch-depth: 0
-
-      - name: Set Git Config
-        run: |
-          git config --global user.email "ci@github.com"
-          git config --global user.name "CI Bot"
-
-      - name: Merge Dev into Main
-        env:
-          GH_TOKEN: ${{ secrets.TOKEN_GITHUB }}
-        run: |
-          git remote set-url origin https://x-access-token:${GH_TOKEN}@github.com/${{ github.repository }}
-          git checkout dev
-          git fetch origin dev
-          git merge origin/dev
 
       - name: Create Pull Request
-        env:
-          GH_TOKEN: ${{ secrets.TOKEN_GITHUB }}
-          GITHUB_TOKEN: ${{ secrets.TOKEN_GITHUB }}
-        run: |
-          gh pr create \
-            --base main \
-            --head dev \
-            --title "Merge dev into main" \
-            --body "Automated PR from CI workflow"
+        uses: peter-evans/create-pull-request@v6
+        with:
+          token: ${{ secrets.TOKEN_GITHUB }}
+          base: main
+          branch: dev
+          title: 'Merge dev into main 🚀'
+          body: 'Cette pull request a été créée automatiquement par GitHub Actions.'
+          labels: 'automatique, dev-to-main'
+          draft: false
